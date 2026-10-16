@@ -10,7 +10,7 @@ Desktop.ini
 .vscode/
 *.code-workspace
 
-# ---- 依赖 / 构建产物（本项目无构建步骤，仅作保险）----
+# ---- 依赖 / 构建产物（本项目无构建步骤；dist/ 是分享用的打包输出）----
 node_modules/
 dist/
 *.log

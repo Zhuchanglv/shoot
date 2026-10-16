@@ -13,7 +13,7 @@
 
 - [玩法与特性](#玩法与特性)
 - [本地运行](#本地运行)
-- [部署到 GitHub Pages](#部署到-github-pages)
+- [分享与部署](#分享与部署)
 - [项目结构](#项目结构)
 - [调参与扩展](#调参与扩展)
 - [开发工具](#开发工具)
@@ -78,7 +78,51 @@ http://localhost:8000/?debug=1
 
 ---
 
-## 部署到 GitHub Pages
+## 分享与部署
+
+项目是纯静态的（`index.html` + 全部相对路径资源，无构建、无后端），所以"怎么分享给别人玩"有几条路，按省事程度排列。
+
+### 方式一：单个 HTML 文件（最省事，直接发文件）
+
+```bash
+node dev/build-single.js      # → dist/pixel-shooter.html（约 1.3 MB）
+```
+
+`dist/pixel-shooter.html` 把 Phaser、CSS、全部游戏代码、图标**内联进一个文件**：
+
+- 双击即可离线游玩（不请求任何网络资源，`file://` 直开也正常）；
+- 可直接通过微信 / QQ / 邮件把**这一个文件**发给别人，对方保存后双击就玩；
+- 也可以整份丢到任何"能放一个 HTML"的地方。
+
+### 方式二：免费静态托管，得到一条网址（推荐，适合发给很多人）
+
+拿到可上传的压缩包（`index.html` 在压缩包**最外层**）：
+
+```powershell
+# 在项目根目录执行 → dist/pixel-shooter-site.zip（index.html 在压缩包最外层）
+Compress-Archive -Path index.html,css,js,vendor,icon.svg,manifest.webmanifest `
+  -DestinationPath dist/pixel-shooter-site.zip -Force
+```
+
+| 平台 | 做法 | 网址形态 |
+| --- | --- | --- |
+| **GitHub Pages** | 见下方详细步骤 | `https://<用户名>.github.io/<仓库名>/` |
+| **Netlify** | 登录后把项目文件夹（或上面的 zip）拖进 Deploys 页面 | `https://<随机名>.netlify.app` |
+| **Vercel** | 登录后导入 Git 仓库（或用 `vercel` CLI） | `https://<项目名>.vercel.app` |
+| **Cloudflare Pages** | 登录后连接仓库 / 直接上传目录 | `https://<项目名>.pages.dev` |
+| **itch.io** | 新建 "HTML" 类型游戏，上传上面的 zip | `https://<作者>.itch.io/<游戏名>` |
+
+所有平台都**不需要构建命令**：构建输出目录就是项目根目录，`index.html` 必须在最外层，然后开 HTTPS 即可分享。
+
+### 方式三：同一 WiFi 下临时分享
+
+```bash
+python -m http.server 8000
+```
+
+让同一局域网的朋友访问 `http://<你的内网 IP>:8000/`（用 `ipconfig` 查 IPv4 地址）。仅限同一网络，适合现场演示。
+
+### GitHub Pages 详细步骤
 
 1. 把整个项目推到 GitHub 仓库（`index.html` 必须在仓库根目录）。
 2. 仓库 **Settings → Pages**：
@@ -119,8 +163,11 @@ http://localhost:8000/?debug=1
 │     └─ GameOverScene.js    # 结算界面
 └─ dev/
    ├─ check-art.js           # 校验美术数据（行宽 / 行数）
+   ├─ build-single.js        # 打包成单个 HTML 文件 → dist/pixel-shooter.html
    └─ sprite-preview.html    # 全部精灵表可视化预览（放大 6×）
 ```
+
+`dist/` 是打包输出目录（由 `node dev/build-single.js` 生成），已在 `.gitignore` 中忽略，不参与提交。
 
 **架构要点**：HUD 放在独立场景 `Hud`，拥有自己的摄像机，因此震屏 / 闪屏永远只影响游戏画面、不会晃动 UI。跨场景通信统一走全局事件总线 `window.Bus`（`js/config.js` 里创建的 `Phaser.Events.EventEmitter`）。
 按钮布局的唯一数据源是 `CFG.HUD()` / `CFG.uiZones()`，HudScene 用它摆放按钮，GameScene 用它屏蔽"点按钮区域"的拖拽，两边不会错位。
@@ -152,6 +199,9 @@ http://localhost:8000/?debug=1
 ```bash
 # 校验所有像素美术数据的行宽 / 行数是否与声明一致
 node dev/check-art.js
+
+# 打包成单个 HTML 文件（内联 Phaser + CSS + 全部代码）→ dist/pixel-shooter.html
+node dev/build-single.js
 ```
 
 浏览器打开 `dev/sprite-preview.html` 可查看**全部精灵表**（6× 放大），改完 `art.js` 刷新就能看到效果。
