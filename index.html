@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#05060f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="PIXEL SHOOTER — 手机竖屏像素风纵向卷轴射击游戏，Phaser 3 + Web Audio 纯代码实现，打开即玩。">
+<title>PIXEL SHOOTER — 像素风纵向射击</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="game"></div>
+
+<!-- 横屏提示（仅触屏设备） -->
+<div id="rotate">
+  <div class="rot-icon">📱</div>
+  <p>请竖屏游玩</p>
+  <p class="sub">ROTATE YOUR DEVICE TO PORTRAIT</p>
+</div>
+
+<noscript><div class="nojs">需要开启 JavaScript 才能运行游戏</div></noscript>
+
+<!-- 依赖：Phaser 3（本地 vendor 目录，相对路径，无 CDN 依赖） -->
+<script src="vendor/phaser.min.js"></script>
+
+<!-- 游戏代码（顺序：配置 → 字体 → 音效 → 美术 → 波次 → 实体 → 场景 → 启动） -->
+<script src="js/config.js"></script>
+<script src="js/pixelfont.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/art.js"></script>
+<script src="js/waves.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/scenes/BootScene.js"></script>
+<script src="js/scenes/MenuScene.js"></script>
+<script src="js/scenes/GameScene.js"></script>
+<script src="js/scenes/HudScene.js"></script>
+<script src="js/scenes/GameOverScene.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

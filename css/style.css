@@ -1,0 +1,106 @@
+/* =========================================================================
+ * PIXEL SHOOTER — 手机优先样式
+ * 关键点：全屏铺满、禁止缩放/滚动/长按菜单、安全区留白、像素锐利放大
+ * ========================================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #05060f;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 刘海屏安全区：FIT 缩放会把画布放进这个内边距里，HUD 不会被挡住 */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  color: #8f9bc4;
+}
+
+#game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+/* 像素画布：整数/最近邻放大，绝不模糊 */
+#game canvas {
+  display: block;
+  touch-action: none;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  outline: none;
+  box-shadow: 0 0 40px rgba(60, 224, 255, .10);
+}
+
+/* ---------------- 横屏提示（只对触屏设备生效，桌面不受影响） ---------------- */
+#rotate {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #05060f;
+  color: #3ce0ff;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  padding: 24px;
+}
+
+#rotate .rot-icon {
+  font-size: 54px;
+  animation: rot 2s ease-in-out infinite;
+}
+
+#rotate p {
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+#rotate .sub {
+  font-size: 11px;
+  color: #4d5578;
+}
+
+@keyframes rot {
+  0%, 40% { transform: rotate(0deg); }
+  60%, 100% { transform: rotate(-90deg); }
+}
+
+@media (orientation: landscape) and (pointer: coarse) and (max-height: 560px) {
+  #rotate { display: flex; }
+  #game { display: none; }
+}
+
+/* ---------------- 无 JS 提示 ---------------- */
+.nojs {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff4d5e;
+  font-size: 14px;
+}

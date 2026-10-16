@@ -1,0 +1,16 @@
+# ---- 操作系统 / 编辑器 ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+
+# ---- 编辑器 / IDE ----
+.idea/
+.vscode/
+*.code-workspace
+
+# ---- 依赖 / 构建产物（本项目无构建步骤，仅作保险）----
+node_modules/
+dist/
+*.log

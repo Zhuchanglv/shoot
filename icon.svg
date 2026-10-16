@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#05060f"/>
+  <!-- 星星 -->
+  <rect x="8" y="10" width="2" height="2" fill="#4d5578"/>
+  <rect x="54" y="16" width="2" height="2" fill="#8f9bc4"/>
+  <rect x="12" y="50" width="2" height="2" fill="#3ce0ff"/>
+  <rect x="50" y="46" width="2" height="2" fill="#ffffff"/>
+  <!-- 机身（放大 3x 的 13x14 像素飞鸟飞船，居中） -->
+  <g transform="translate(12.5,6) scale(3)">
+    <rect x="6" y="0" width="1" height="1" fill="#3ce0ff"/>
+    <rect x="5" y="1" width="3" height="1" fill="#3ce0ff"/>
+    <rect x="5" y="2" width="5" height="1" fill="#3ce0ff"/>
+    <rect x="6" y="2" width="1" height="1" fill="#ffffff"/>
+    <rect x="4" y="3" width="2" height="1" fill="#3ce0ff"/>
+    <rect x="7" y="3" width="2" height="1" fill="#3ce0ff"/>
+    <rect x="6" y="3" width="1" height="1" fill="#ffffff"/>
+    <rect x="4" y="4" width="2" height="1" fill="#3ce0ff"/>
+    <rect x="7" y="4" width="2" height="1" fill="#3ce0ff"/>
+    <rect x="6" y="4" width="1" height="1" fill="#ffffff"/>
+    <rect x="3" y="5" width="7" height="1" fill="#1f8cff"/>
+    <rect x="4" y="5" width="5" height="1" fill="#3ce0ff"/>
+    <rect x="2" y="6" width="9" height="1" fill="#1f8cff"/>
+    <rect x="4" y="6" width="5" height="1" fill="#3ce0ff"/>
+    <rect x="1" y="7" width="11" height="1" fill="#0d3a91"/>
+    <rect x="3" y="7" width="7" height="1" fill="#1f8cff"/>
+    <rect x="4" y="7" width="1" height="1" fill="#ffffff"/>
+    <rect x="8" y="7" width="1" height="1" fill="#ffffff"/>
+    <rect x="1" y="8" width="11" height="1" fill="#0d3a91"/>
+    <rect x="4" y="8" width="5" height="1" fill="#1f8cff"/>
+    <rect x="2" y="9" width="9" height="1" fill="#1f8cff"/>
+    <rect x="3" y="10" width="7" height="1" fill="#1f8cff"/>
+    <rect x="4" y="11" width="5" height="1" fill="#1f8cff"/>
+    <rect x="4" y="12" width="1" height="1" fill="#ffa63d"/>
+    <rect x="8" y="12" width="1" height="1" fill="#ffa63d"/>
+  </g>
+</svg>

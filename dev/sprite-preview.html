@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>PIXEL SHOOTER — 精灵表预览 / Sprite sheet preview</title>
+<style>
+  body { background:#0b0d17; color:#8f9bc4; font:12px/1.5 monospace; margin:0; padding:16px; }
+  h1 { font-size:14px; color:#3ce0ff; margin:0 0 4px; }
+  p  { margin:0 0 16px; color:#4d5578; }
+  .grid { display:flex; flex-wrap:wrap; gap:14px; }
+  .cell { background:#05060f; border:1px solid #1f2a45; padding:8px; text-align:center; }
+  .cell b { display:block; font-weight:400; color:#63f28a; margin-bottom:6px; }
+  .cell span { display:block; color:#4d5578; font-size:10px; margin-top:6px; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display:block; margin:0 auto; }
+</style>
+</head>
+<body>
+<h1>PIXEL SHOOTER — 全部程序化像素美术（运行时生成，无外部素材）</h1>
+<p>每个精灵表按 6 倍最近邻放大显示；数据来源 js/art.js 的 Art.def。开发用页面，不参与游戏运行。</p>
+<div class="grid" id="grid"></div>
+
+<script src="../js/config.js"></script>
+<script src="../js/art.js"></script>
+<script>
+(function () {
+  var S = 6;                 // 放大倍数
+  var def = Art.def;
+  var grid = document.getElementById('grid');
+
+  Object.keys(def).forEach(function (key) {
+    var d = def[key];
+    var frames = d.art ? d.art.length : (d.count || 1);
+    var cell = document.createElement('div');
+    cell.className = 'cell';
+
+    var title = document.createElement('b');
+    title.textContent = key;
+    cell.appendChild(title);
+
+    var cv = document.createElement('canvas');
+    cv.width = d.w * frames;
+    cv.height = d.h;
+    var ctx = cv.getContext('2d');
+    for (var i = 0; i < frames; i++) Art.renderDef(ctx, key, i * d.w, 0, i);
+
+    var shown = document.createElement('canvas');
+    shown.width = cv.width * S;
+    shown.height = cv.height * S;
+    var sctx = shown.getContext('2d');
+    sctx.imageSmoothingEnabled = false;
+    sctx.drawImage(cv, 0, 0, cv.width, cv.height, 0, 0, shown.width, shown.height);
+
+    // 缩太小/太大的都套一个外框，方便看尺寸
+    cell.appendChild(shown);
+
+    var info = document.createElement('span');
+    info.textContent = d.w + 'x' + d.h + '  x' + frames + (d.art ? ' (pixel)' : (d.capsule ? ' (capsule)' : ' (procedural)'));
+    cell.appendChild(info);
+
+    grid.appendChild(cell);
+  });
+})();
+</script>
+</body>
+</html>
