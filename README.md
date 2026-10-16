@@ -232,3 +232,4 @@ AudioContext 需用户手势解锁：首次点击 / 触摸时会自动 `resume`�
 ---
 
 如果你要把它做成自己的游戏，最省事的改动路径是：`CFG.PALETTE` 换配色 → `art.js` 换/加造型 → `CFG.ENEMY` / `CFG.WEAPONS` 调平衡 → `waves.js` 编队。祝玩得开心 🚀
+# shoot
